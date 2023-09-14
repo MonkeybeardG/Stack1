@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stack Game</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      #game-board {
+        width: 300px;
+        height: 500px;
+        background-color: #f4f4f4;
+        margin: 30px auto;
+        position: relative;
+      }
+      .block {
+        width: 250px;
+        height: 50px;
+        background-color: blue;
+        margin: 0 auto;
+        position: absolute;
+        bottom: 0;
+      }
+      button {
+        margin-top: 30px;
+        padding: 10px 20px;
+        background-color: blue;
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Stack Game</h1>
+    <div id="game-board">
+      <div class="block"></div>
+    </div>
+    <button id="add-block-button">Add Block</button>
+    <script>
+      // Get the game board and add block button elements
+      const gameBoard = document.getElementById("game-board");
+      const addBlockButton = document.getElementById("add-block-button");
+
+      // Create a counter for blocks added
+      let blockCount = 1;
+
+      // Add an event listener to the button
+      addBlockButton.addEventListener("click", () => {
+        // Create a new block div and set its attributes
+        const newBlock = document.createElement("div");
+        newBlock.classList.add("block");
+        newBlock.style.bottom = `${50 * blockCount}px`;
+        newBlock.innerHTML = `Block ${blockCount++}`;
+
+        // Add the new block to the game board
+        gameBoard.appendChild(newBlock);
+
+        // Check if the stack is too high
+        if (blockCount > 10) {
+          alert("Game Over!");
+          location.reload();
+        }
+      });
+    </script>
+  </body>
+</html>
