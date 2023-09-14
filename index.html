@@ -23,6 +23,12 @@
         margin: 0 auto;
         position: absolute;
         bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
       }
       button {
         margin-top: 30px;
@@ -38,7 +44,7 @@
   <body>
     <h1>Stack Game</h1>
     <div id="game-board">
-      <div class="block"></div>
+      <div class="block" id="block-1">Block 1</div>
     </div>
     <button id="add-block-button">Add Block</button>
     <script>
@@ -48,20 +54,24 @@
 
       // Create a counter for blocks added
       let blockCount = 1;
+      let previousBlock;
 
       // Add an event listener to the button
       addBlockButton.addEventListener("click", () => {
-        // Create a new block div and set its attributes
+        // Create a new block div
         const newBlock = document.createElement("div");
         newBlock.classList.add("block");
         newBlock.style.bottom = `${50 * blockCount}px`;
-        newBlock.innerHTML = `Block ${blockCount++}`;
+        newBlock.innerHTML = `Block ${blockCount}`;
 
-        // Add the new block to the game board
-        gameBoard.appendChild(newBlock);
-
-        // Check if the stack is too high
-        if (blockCount > 10) {
+        // Check if it's the first block or if the new block is placed correctly
+        if (blockCount === 1 || newBlock.style.bottom === previousBlock.style.bottom) {
+          // Add the new block to the game board and update the counter
+          gameBoard.appendChild(newBlock);
+          previousBlock = newBlock;
+          blockCount++;
+        } else {
+          // Game over
           alert("Game Over!");
           location.reload();
         }
